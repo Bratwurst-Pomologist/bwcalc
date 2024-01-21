@@ -1,7 +1,8 @@
 -- Define the calculator GUI
 -- new added line pet acode app.
-local calculator_formspec = "size[8,11]" ..
-  "textarea[0.5,0.5;8.5,1;output;;${result}]" ..
+local calculator_formspec = "size[8.5,9.5]" ..
+  "label[0.5,0;2BW_Calc Industries]" ..
+  "textarea[0.5,0.5;8,1;output;;${result}]" ..
   "button[0.5,1.5;1.5,1;btn_1;1]" ..
   "button[2,1.5;1.5,1;btn_2;2]" ..
   "button[3.5,1.5;1.5,1;btn_3;3]" ..
@@ -13,15 +14,19 @@ local calculator_formspec = "size[8,11]" ..
   "button[3.5,4.5;1.5,1;btn_9;9]" ..
   "button[2,6;1.5,1;btn_0;0]" ..
   "button[3.5,6;1.5,1;btn_dot;.]" ..
-  "button[6.5,6;1.5,1;btn_eq;=]" ..
+  "box[6.5,6;1.5,3;#ff0000]" ..
+  "button[6.5,6;1.5,3;btn_eq;=]" ..
   "button[5,4.5;1.5,1;btn_sub;-]" ..
   "button[6.5,4.5;1.5,1;btn_mul;*]" ..
   "button[5,3;1.5,1;btn_div;/]" ..
   "button[6.5,3;1.5,1;btn_add;+]" ..
   "button[5,1.5;1.5,1;btn_clear;C]" ..
   "button[0.5,6;1.5,1;btn_op;+-]" ..
-  "button[0.5,8;1.5,1;btn_copy;Copy]" ..
-  "button[2,8;1.5,1;btn_paste;Paste]" ..
+  "button[0.5,7.5;1.5,1;btn_copy;Copy]" ..
+  "button[2,7.5;1.5,1;btn_paste;Paste]" ..
+  "button[3.5,7.5;1.5,1;btn_pi;π]" ..
+  "button[2,9;1.5,1;btn_qat;x^2]" ..
+  "button[0.5,9;1.5,1;btn_sqrt;√]" ..
 --  "button[5,6;1.5,1;btn_ans;ANS]" ..
   "button[6.5,1.5;1.5,1;btn_del;DEL]"
 
@@ -98,8 +103,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     end
   
     if fields.btn_copy then
-      local check_expression
-      local copied_expression
+      --local check_expression
+      --local copied_expression
       check_expression = tonumber(expression)
       if check_expression ~= nil then
         copied_expression = check_expression
@@ -112,6 +117,23 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
       end
     end
 
+    if fields.btn_pi then
+      expression = expression .. "3.1415"
+    end
+
+    if fields.btn_qat then
+      expressionValue = tonumber(expression)
+      if expressionValue ~= nil then
+        expression = expressionValue * expressionValue
+      end
+    end
+
+    if fields.btn_sqrt then
+      expressionValue = tonumber(expression)
+      if expressionValue ~= nil then
+        expression = math.sqrt(expressionValue)
+      end
+    end
 
     if fields.btn_eq then
       local first_numberValue = tonumber(first_number)
