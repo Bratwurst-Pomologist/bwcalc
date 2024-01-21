@@ -1,4 +1,5 @@
 -- Define the calculator GUI
+-- new added line pet acode app.
 local calculator_formspec = "size[8,11]" ..
   "textarea[0.5,0.5;8.5,1;output;;${result}]" ..
   "button[0.5,1.5;1.5,1;btn_1;1]" ..
