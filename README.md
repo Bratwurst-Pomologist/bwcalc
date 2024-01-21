@@ -1,4 +1,4 @@
 # bwcalc
 Simple formspec calculator mod for Minetest.
 
-type '/calculator' in chat to start.
+type '/bwcalc' in chat to start.
