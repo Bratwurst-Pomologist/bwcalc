@@ -1,8 +1,9 @@
 -- Define the calculator GUI
 -- new added line pet acode app.
 local calculator_formspec = "size[8.5,9.5]" ..
-  "label[0.5,0;2BW_Calc Industries]" ..
+  "label[0.5,0;2BW Instruments        TI-1250]" ..
   "textarea[0.5,0.5;8,1;output;;${result}]" ..
+  "box[0.4,1.4;4.5,5.5;#8A2BE2]" ..
   "button[0.5,1.5;1.5,1;btn_1;1]" ..
   "button[2,1.5;1.5,1;btn_2;2]" ..
   "button[3.5,1.5;1.5,1;btn_3;3]" ..
@@ -14,8 +15,8 @@ local calculator_formspec = "size[8.5,9.5]" ..
   "button[3.5,4.5;1.5,1;btn_9;9]" ..
   "button[2,6;1.5,1;btn_0;0]" ..
   "button[3.5,6;1.5,1;btn_dot;.]" ..
-  "box[6.5,6;1.5,3;#ff0000]" ..
-  "button[6.5,6;1.5,3;btn_eq;=]" ..
+  "box[6.4,5.9;1.5,1;#ff0000]" ..
+  "button[6.5,6;1.5,1;btn_eq;=]" ..
   "button[5,4.5;1.5,1;btn_sub;-]" ..
   "button[6.5,4.5;1.5,1;btn_mul;*]" ..
   "button[5,3;1.5,1;btn_div;/]" ..
@@ -183,7 +184,7 @@ function perform_calculation(first, op, second)
 end
 
 -- Open the calculator GUI when the player types "/calculator" in the chat
-minetest.register_chatcommand("calculator", {
+minetest.register_chatcommand("bwcalc", {
   params = "",
   description = "Open the calculator GUI",
   func = function(name, param)
