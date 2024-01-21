@@ -20,6 +20,8 @@ local calculator_formspec = "size[8,11]" ..
   "button[6.5,3;1.5,1;btn_add;+]" ..
   "button[5,1.5;1.5,1;btn_clear;C]" ..
   "button[0.5,6;1.5,1;btn_op;+-]" ..
+  "button[0.5,8;1.5,1;btn_copy;Copy]" ..
+  "button[2,8;1.5,1;btn_paste;Paste]" ..
 --  "button[5,6;1.5,1;btn_ans;ANS]" ..
   "button[6.5,1.5;1.5,1;btn_del;DEL]"
 
@@ -94,6 +96,22 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if fields.btn_del then
       expression = expression:sub(1, -2)
     end
+  
+    if fields.btn_copy then
+      local check_expression
+      local copied_expression
+      check_expression = tonumber(expression)
+      if check_expression ~= nil then
+        copied_expression = check_expression
+      end
+    end
+  
+    if fields.btn_paste then
+      if copied_expression then
+        expression = expression .. copied_expression
+      end
+    end
+
 
     if fields.btn_eq then
       local first_numberValue = tonumber(first_number)
