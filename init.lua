@@ -1,5 +1,4 @@
 -- Define the calculator GUI
--- new added line pet acode app.
 local calculator_formspec = "size[8.5,9.5]" ..
   "label[0.5,0;2BW Instruments        TI-1250]" ..
   "textarea[0.5,0.5;8,1;output;;${result}]" ..
@@ -28,14 +27,15 @@ local calculator_formspec = "size[8.5,9.5]" ..
   "button[3.5,7.5;1.5,1;btn_pi;π]" ..
   "button[2,9;1.5,1;btn_qat;x^2]" ..
   "button[0.5,9;1.5,1;btn_sqrt;√]" ..
---  "button[5,6;1.5,1;btn_ans;ANS]" ..
+  -- "button[5,6;1.5,1;btn_ans;ANS]" ..
   "button[6.5,1.5;1.5,1;btn_del;DEL]" ..
-		"button[6.5,9;1.5,1;btn_exit;EXIT]"
+  "button[6.5,9;1.5,1;btn_exit;EXIT]"
 
 -- Track user input
 local first_number = ""
 local second_number = ""
 local operator = ""
+local copied_expression = ""
 
 -- Register the calculator GUI
 minetest.register_on_player_receive_fields(function(player, formname, fields)
@@ -53,25 +53,23 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if fields.btn_8 then expression = expression .. "8" end
     if fields.btn_9 then expression = expression .. "9" end
     if fields.btn_0 then expression = expression .. "0" end
-    if fields.btn_dot then expression =
-      expression .. "." end
+    if fields.btn_dot then expression = expression .. "." end
     if fields.btn_add then
       first_number = expression
       operator = "+"
       expression = ""
     end
-    
-    
+
     if fields.btn_op then
       if expression then
         local expressionValue = tonumber(expression)
         if expressionValue ~= nil then
-      expression = expressionValue * -1
-      else
-      expression = "Error: expression not valid number"
-      end
+          expression = expressionValue * -1
+        else
+          expression = "Error: expression not valid number"
+        end
       else 
-      expression = "Error: expression is nil"
+        expression = "Error: expression is nil"
       end
     end
 
@@ -103,16 +101,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if fields.btn_del then
       expression = expression:sub(1, -2)
     end
-  
+
     if fields.btn_copy then
-      --local check_expression
-      --local copied_expression
       check_expression = tonumber(expression)
       if check_expression ~= nil then
         copied_expression = check_expression
       end
     end
-  
+
     if fields.btn_paste then
       if copied_expression then
         expression = expression .. copied_expression
@@ -140,28 +136,28 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if fields.btn_eq then
       local first_numberValue = tonumber(first_number)
       if first_numberValue ~= nil then
-      if expression then
-        local expressionValue = tonumber(expression)
-        if expressionValue ~= nil then
-      second_number = expressionValue
-      else 
-        expression = "expression is no validnumber"
+        if expression then
+          local expressionValue = tonumber(expression)
+          if expressionValue ~= nil then
+            second_number = expressionValue
+          else 
+            expression = "expression is not a valid number"
+          end
         end
-      end
-					if fields.btn_exit then
-						minetest.show_formspec(player:get_player_name(), "", "")
-						return true
-				end
-      
-  
-      local result = perform_calculation(first_number, operator, second_number)
-      expression = tostring(result)
-      first_number = expression
-      second_number = ""
-      operator = ""
+
+        local result = perform_calculation(first_number, operator, second_number)
+        expression = tostring(result)
+        first_number = expression
+        second_number = ""
+        operator = ""
       else
-        expression = "Error: first_number is no valid number"
+        expression = "Error: first_number is not a valid number"
       end
+    end
+
+    if fields.btn_exit then
+      minetest.show_formspec(player:get_player_name(), "", "")
+      return true
     end
 
     -- Update the formspec with the modified expression
