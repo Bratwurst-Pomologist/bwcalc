@@ -148,6 +148,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         expression = "expression is no validnumber"
         end
       end
+					if fields.btn_exit then
+						minetest.show_formspec(player, "", "")
+						return true
+				end
       
   
       local result = perform_calculation(first_number, operator, second_number)
