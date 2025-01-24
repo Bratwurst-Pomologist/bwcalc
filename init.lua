@@ -29,7 +29,8 @@ local calculator_formspec = "size[8.5,9.5]" ..
   "button[2,9;1.5,1;btn_qat;x^2]" ..
   "button[0.5,9;1.5,1;btn_sqrt;√]" ..
 --  "button[5,6;1.5,1;btn_ans;ANS]" ..
-  "button[6.5,1.5;1.5,1;btn_del;DEL]"
+  "button[6.5,1.5;1.5,1;btn_del;DEL]" ..
+		"button[6.5,9;1.5,1;btn_exit;EXIT]"
 
 -- Track user input
 local first_number = ""
