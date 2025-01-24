@@ -149,7 +149,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
         end
       end
 					if fields.btn_exit then
-						minetest.show_formspec(player, "", "")
+						minetest.show_formspec(player:get_player_name(), "", "")
 						return true
 				end
       
